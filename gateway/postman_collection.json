@@ -1,0 +1,127 @@
+{
+  "info": {
+    "name": "Zero Trust API Gateway",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "baseUrl", "value": "http://localhost:3000" },
+    { "key": "token", "value": "" }
+  ],
+  "item": [
+    {
+      "name": "Login as Admin",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"userId\": \"admin1\"\n}"
+        },
+        "url": { "raw": "{{baseUrl}}/auth/login", "host": ["{{baseUrl}}"], "path": ["auth", "login"] }
+      }
+    },
+    {
+      "name": "Login as Auditor",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"userId\": \"auditor1\"\n}"
+        },
+        "url": { "raw": "{{baseUrl}}/auth/login", "host": ["{{baseUrl}}"], "path": ["auth", "login"] }
+      }
+    },
+    {
+      "name": "Login as User",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"userId\": \"alice\"\n}"
+        },
+        "url": { "raw": "{{baseUrl}}/auth/login", "host": ["{{baseUrl}}"], "path": ["auth", "login"] }
+      }
+    },
+    {
+      "name": "GET Secure API",
+      "request": {
+        "method": "GET",
+        "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+        "url": { "raw": "{{baseUrl}}/api/secure", "host": ["{{baseUrl}}"], "path": ["api", "secure"] }
+      }
+    },
+    {
+      "name": "GET Sensitive API",
+      "request": {
+        "method": "GET",
+        "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+        "url": { "raw": "{{baseUrl}}/api/secure/sensitive", "host": ["{{baseUrl}}"], "path": ["api", "secure", "sensitive"] }
+      }
+    },
+    {
+      "name": "GET Admin Logs",
+      "request": {
+        "method": "GET",
+        "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+        "url": { "raw": "{{baseUrl}}/admin/logs", "host": ["{{baseUrl}}"], "path": ["admin", "logs"] }
+      }
+    },
+    {
+      "name": "GET Admin Stats",
+      "request": {
+        "method": "GET",
+        "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+        "url": { "raw": "{{baseUrl}}/admin/stats", "host": ["{{baseUrl}}"], "path": ["admin", "stats"] }
+      }
+    },
+    {
+      "name": "GET Admin Alerts",
+      "request": {
+        "method": "GET",
+        "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+        "url": { "raw": "{{baseUrl}}/admin/alerts", "host": ["{{baseUrl}}"], "path": ["admin", "alerts"] }
+      }
+    },
+    {
+      "name": "GET Blocked IPs",
+      "request": {
+        "method": "GET",
+        "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+        "url": { "raw": "{{baseUrl}}/admin/blocked-ips", "host": ["{{baseUrl}}"], "path": ["admin", "blocked-ips"] }
+      }
+    },
+    {
+      "name": "POST Blocked IP",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Authorization", "value": "Bearer {{token}}" },
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"ip\": \"1.2.3.4\",\n  \"reason\": \"manual_block_test\"\n}"
+        },
+        "url": { "raw": "{{baseUrl}}/admin/blocked-ips", "host": ["{{baseUrl}}"], "path": ["admin", "blocked-ips"] }
+      }
+    },
+    {
+      "name": "DELETE Blocked IP",
+      "request": {
+        "method": "DELETE",
+        "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+        "url": { "raw": "{{baseUrl}}/admin/blocked-ips/1.2.3.4", "host": ["{{baseUrl}}"], "path": ["admin", "blocked-ips", "1.2.3.4"] }
+      }
+    },
+    {
+      "name": "GET Trust Scores",
+      "request": {
+        "method": "GET",
+        "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+        "url": { "raw": "{{baseUrl}}/admin/trust-scores", "host": ["{{baseUrl}}"], "path": ["admin", "trust-scores"] }
+      }
+    }
+  ]
+}
